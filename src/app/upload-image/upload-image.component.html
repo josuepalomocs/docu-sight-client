@@ -1,8 +1,8 @@
-<div class="p-4">
+<div class="flex flex-col space-y-4 p-4">
   <div
-    class="flex justify-center items-center h-48 border-2 border-dashed rounded mb-4"
+    class="flex justify-center items-center h-48 border-2 border-dashed rounded"
     [ngClass]="{ highlight: isHighlighted }"
-    (dragover)="onDropZoneDrag()"
+    (dragover)="onDropZoneDrag($event)"
     (drop)="onDropZoneDrop($event)"
     (dragleave)="onDropZoneDragLeave()"
   >
@@ -27,10 +27,35 @@
       <p class="text-neutral-400">or drag and drop it here</p>
     </div>
   </div>
-  <p class="font-semibold text-neutral-600 mb-2">Or upload from a URL</p>
-  <div class="flex w-full rounded">
-    <input class="flex-1 bg-neutral-100 p-2 border-y border-l rounded-l" type="text" placeholder="File URL">
-    <button class="p-2 border border-blue-500 bg-blue-500 text-white rounded-r" type="button">Upload</button>
+  <div class="">
+    <div class="flex w-full rounded">
+      <input class="flex-1 bg-neutral-100 p-2 border-y border-l rounded-l" type="text" placeholder="File URL">
+      <button class="p-2 border border-blue-500 bg-blue-500 text-white rounded-r" type="button">Upload</button>
+    </div>
   </div>
-  <div>{{this.imageFiles?.length}}</div>
+  <div class="flex flex-col space-y-2">
+    <p class="font-semibold">File attachments</p>
+    <div class="border rounded">
+      <table class="w-full">
+        <thead class="bg-neutral-100">
+          <tr class="text-left">
+            <th class="p-2 font-medium text-sm">Name</th>
+            <th class="p-2 font-medium text-sm">Date added</th>
+            <th class="p-2 font-medium text-sm">Size</th>
+            <th class="p-2"></th>
+          </tr>
+        </thead>
+        <tbody class="overflow-y-auto">
+          <tr class="border-t" *ngFor="let file of currentFiles">
+            <td class="p-2">{{ file.name }}</td>
+            <td class="p-2">{{ file.lastModified | date:'MMM d, y' }}</td>
+            <td class="p-2">{{ file.size | fileSize }}</td>
+            <td class="p-2"><button class="p-2 flex justify-between items-center" (click)="removeFile(file)">
+              <ng-icon class="text-neutral-400" name="heroTrashSolid" size="20" />
+            </button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
