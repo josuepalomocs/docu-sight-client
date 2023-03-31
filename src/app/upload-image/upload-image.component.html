@@ -1,0 +1,36 @@
+<div class="p-4">
+  <div
+    class="flex justify-center items-center h-48 border-2 border-dashed rounded mb-4"
+    [ngClass]="{ highlight: isHighlighted }"
+    (dragover)="onDropZoneDrag()"
+    (drop)="onDropZoneDrop($event)"
+    (dragleave)="onDropZoneDragLeave()"
+  >
+    <div class="flex flex-col items-center space-y-2">
+      <label
+        class="flex flex-col items-center text-blue-500 font-semibold text-xl rounded cursor-pointer"
+        for="upload-image"
+        >
+          <ng-icon class="text-blue-400" name="heroDocumentPlusSolid" size="48" />
+          <span class="pt-2">Select a file to upload</span>
+        </label
+      >
+      <input
+        #fileInput
+        class="hidden"
+        type="file"
+        id="upload-image"
+        name="upload-image"
+        accept="image/*"
+        (change)="onFileInputChange($event)"
+      />
+      <p class="text-neutral-400">or drag and drop it here</p>
+    </div>
+  </div>
+  <p class="font-semibold text-neutral-600 mb-2">Or upload from a URL</p>
+  <div class="flex w-full rounded">
+    <input class="flex-1 bg-neutral-100 p-2 border-y border-l rounded-l" type="text" placeholder="File URL">
+    <button class="p-2 border border-blue-500 bg-blue-500 text-white rounded-r" type="button">Upload</button>
+  </div>
+  <div>{{this.imageFiles?.length}}</div>
+</div>
